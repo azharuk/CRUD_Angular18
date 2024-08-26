@@ -1,0 +1,56 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="search-container">
+  <button class="add-course-button" (click)="addNewCourse()">Add new course</button>
+  <input matInput [formControl]="searchControl" placeholder="Search" class="search-input"/>
+  <button mat-icon-button type="button" (click)="loadCourses(searchControl.value || '')">
+    <mat-icon>search</mat-icon>
+  </button>
+</div>
+
+<div fxLayout="column" fxFlex="100%">
+  <table mat-table [dataSource]="courses" class="mat-elevation-z8">
+    <!-- Course Name Column with Edit and Delete Icons -->
+    <ng-container matColumnDef="courseName">
+      <th mat-header-cell *matHeaderCellDef> Course Name </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon class="action-icon" (click)="editCourse(element._id)">edit</mat-icon>
+        <mat-icon class="action-icon" (click)="deleteCourse(element._id)">delete</mat-icon>
+        {{element.CourseName}}
+      </td>
+    </ng-container>
+
+    <!-- Location Column -->
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef> Location </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.Country}}, {{element.City}}, {{element.University}}
+      </td>
+    </ng-container>
+
+    <!-- Start Date Column -->
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef> Start </th>
+      <td mat-cell *matCellDef="let element"> {{element.StartDate | date}} </td>
+    </ng-container>
+
+    <!-- Length Column -->
+    <ng-container matColumnDef="length">
+      <th mat-header-cell *matHeaderCellDef> Length </th>
+      <td mat-cell *matCellDef="let element"> {{ calculateCourseLength(element.StartDate, element.EndDate) }} </td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{ element.Price | currency:element.Currency:'symbol' }} </td>
+    </ng-container>
+
+    <!-- Header Row -->
+    <tr mat-header-row *matHeaderRowDef="['courseName', 'location', 'startDate', 'length', 'price']"></tr>
+    <!-- Data Row -->
+    <tr mat-row *matRowDef="let row; columns: ['courseName', 'location', 'startDate', 'length', 'price'];" matTooltip="{{row.CourseDescription}}"></tr>
+
+  </table>
+</div>
+
+<mat-paginator [length]="totalCourses" [pageSize]="pageSize" (page)="onPageChange($event)">
+</mat-paginator>

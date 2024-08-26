@@ -1,0 +1,31 @@
+.full-width {
+  width: 100%;
+}
+
+.currency-width {
+  width: 25%;
+}
+
+.price-width {
+  width: 70%;
+}
+
+mat-card {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+mat-card-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+button {
+  margin-left: 10px;
+}
