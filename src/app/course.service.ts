@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CourseService {
-  public apiUrl = 'http://localhost:8000'; // Replace with your actual API URL
+  public apiUrl = 'https://fastapi.wpgsoft.com'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) {}
 
